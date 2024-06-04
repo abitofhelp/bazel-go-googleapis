@@ -12,9 +12,9 @@ This repository contains a client/server solution implementing the classic Greet
 My goal was to explore how to use the googleapis proto package from BCR rather than having to 
 configure the following in the MODULE.bazel file.
 
-# See:
-# https://bazel.build/external/migration#fetch-deps-module-extensions
-# https://github.com/bazelbuild/rules_go/issues/3685
+## See:
+## https://bazel.build/external/migration#fetch-deps-module-extensions
+## https://github.com/bazelbuild/rules_go/issues/3685
 
 GOOGLE_APIS_VERSION = "64926d52febbf298cb82a8f472ade4a3969ba922"
 
