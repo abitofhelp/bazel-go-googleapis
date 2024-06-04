@@ -1,0 +1,39 @@
+load("@bazel_gazelle//:def.bzl", "gazelle", "gazelle_binary")
+load("@buildifier_prebuilt//:rules.bzl", "buildifier")
+
+gazelle_binary(
+    name = "gazelle-bin",
+    languages = [
+        # Loads the native proto extension
+        "@bazel_gazelle//language/proto:go_default_library",
+        "@bazel_gazelle//language/go:go_default_library",
+        # NOTE: This needs to be loaded after the proto language
+    ],
+)
+
+## gazelle:resolve proto go google/api/annotations.proto     @org_golang_google_genproto//googleapis/api/annotations
+## gazelle:resolve proto go google/protobuf/timestamp.proto  @org_golang_google_genproto//protobuf/types/known/timestamppb
+# gazelle:exclude bazel-*
+# gazelle:exclude gen
+# gazelle:exclude scripts
+# gazelle:go_grpc_compilers @com_connectrpc_connect//cmd/protoc-gen-connect-go:protoc-gen-connect-go
+## gazelle:go_naming_convention import_alias
+# gazelle:go_proto_compilers @rules_go//proto:go_proto
+gazelle(
+    name = "gazelle",
+    gazelle = ":gazelle-bin",
+)
+
+buildifier(
+    name = "buildifier.check",
+    exclude_patterns = [
+        "./bazel-*",
+        "./git/*",
+        "./vendor/*",
+    ],
+    lint_mode = "warn",
+    lint_warnings = ["all"],
+    mode = "check",
+    verbose = True,
+)
+
