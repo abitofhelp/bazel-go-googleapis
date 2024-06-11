@@ -1,6 +1,7 @@
 #bazel-go-googleapis.git
 
 This repository contains a client/server solution implementing the classic Greet service using the following technologies:
+N.B. It does not use any of Buf's technology.
 * Bazel
 * Gazelle
 * Go
